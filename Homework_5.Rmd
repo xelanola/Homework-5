@@ -39,7 +39,8 @@ Choice 2: Recreate the graph shown below. It shows monthly homicides in Baltimor
 
 
 ```{r}
-
+library(tidyverse)
+library(ggplot2)
 ```
 
 
