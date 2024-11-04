@@ -1,0 +1,12 @@
+---
+title: "READEME"
+author: "Alex Alon"
+date: "2024-11-04"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This project is related to HW #5 of the ERHS535 R Programming for Research Course.
