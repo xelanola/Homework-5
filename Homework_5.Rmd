@@ -3,6 +3,9 @@ title: 'Homework #5'
 author: "Alex Alon"
 date: "2024-10-21"
 output: word_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -12,15 +15,14 @@ knitr::opts_knit$set(root.dir = 'Data')
 
 Due date: Nov. 18 by midnight
 
-Continue using the dataset used for Homework #4. 
-You will submit this project by sending me the link to a GitHub repository.
-For the write-up of this homework, you’ll need to write an RMarkdown document and render it to a pdf file within the R Project for the GitHub repository.
+Continue using the dataset used for Homework #4. You will submit this
+project by sending me the link to a GitHub repository. For the write-up
+of this homework, you'll need to write an RMarkdown document and render
+it to a pdf file within the R Project for the GitHub repository.
 
-As you work on your homework, make sure you commit regularly (with helpful commit messages). You should have at least 15 commit messages in your history for the repo by the time you turn in the homework.
-
-
-
-
+As you work on your homework, make sure you commit regularly (with
+helpful commit messages). You should have at least 15 commit messages in
+your history for the repo by the time you turn in the homework.
 
 ```{r}
 library(tidyverse)
@@ -78,6 +80,5 @@ ggplot() +
   geom_sf(data =la_tracts,  color = 'black', 
           aes(fill = NA)) +
   geom_sf(data=LA,  aes(color = victim_race)) +
-  facet_wrap(~unsolved_homicides)```
-
-
+  facet_wrap(~unsolved_homicides)
+```
