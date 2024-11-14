@@ -18,9 +18,6 @@ For the write-up of this homework, you’ll need to write an RMarkdown document 
 
 As you work on your homework, make sure you commit regularly (with helpful commit messages). You should have at least 15 commit messages in your history for the repo by the time you turn in the homework.
 
-Select one of the following two figures to create for the homework:
-
-Choice 1: Create a map showing the locations of the homicides in that city, using the sf framework discussed in class. Use tigris to download boundaries for some sub-city geography (e.g., tracts, block groups, county subdivisions) to show as a layer underneath the points showing homicides. Use different facets for solved versus unsolved homicides and different colors to show the three race groups with the highest number of homicides for that city (you may find the fct_lump function from forcats useful for this).
 
 
 
@@ -31,6 +28,8 @@ library(purrr)
 library(ggplot2)
 library(broom)
 library(tigris)
+library(maps)
+library(sf)
 
 homicides <- read.csv('homicide-data.csv')
 
@@ -42,16 +41,43 @@ homicides <- homicides %>%
 #sum of unsolved homicides
 unsolved <- homicides %>%
   group_by(city_name) %>%
-  mutate("unsolved_homicides" = disposition %in% c("Closed without arrest", "Open/No arrest")) %>%
-  summarize(total_homicides = n(), total_unsolved = sum(unsolved_homicides)) 
+  mutate("unsolved_homicides" = disposition %in% c("Closed without arrest", "Open/No arrest"))
 
 
 #I'm most interested in Los Angeles
 
-LA <- homicides %>%
+LA <- unsolved %>%
   filter(city_name == "Los Angeles, CA")
 
+us_states <- data.frame(state= state.name, area = state.area, region = state.region)
+
 la_subdivisions <- county_subdivisions(state = "CA", county = "Los Angeles", cb = TRUE, class = "sf")
-```
+
+la_blocks <- block_groups(state = "CA", county = "Los Angeles", cb = TRUE, class = "sf")
+
+la_tracts <- tracts(state = "CA", county = "Los Angeles", cb = TRUE, class = "sf")
+
+la_county <- counties(state = "CA", cb = TRUE, class = "sf") %>%
+  filter(NAME=="Los Angeles")
+
+LA <- st_as_sf(LA, coords = c("lon", "lat"))%>% 
+  st_set_crs(4269) %>%
+  filter(victim_race %in% c("White", "Black", "Hispanic"))
+
+top3_race <- LA %>%
+  group_by(victim_race) %>%
+  count()
+
+ggplot() +
+  geom_sf(data =la_county, color = 'black', 
+          aes(fill = NA)) +
+  geom_sf(data =la_subdivisions,  color = 'black', 
+          aes(fill = NA)) +
+  geom_sf(data =la_blocks,  color = 'black', 
+          aes(fill = NA))  +
+  geom_sf(data =la_tracts,  color = 'black', 
+          aes(fill = NA)) +
+  geom_sf(data=LA,  aes(color = victim_race)) +
+  facet_wrap(~unsolved_homicides)```
 
 
