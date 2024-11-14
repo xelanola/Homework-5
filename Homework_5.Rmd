@@ -15,14 +15,11 @@ knitr::opts_knit$set(root.dir = 'Data')
 
 Due date: Nov. 18 by midnight
 
-Continue using the dataset used for Homework #4. You will submit this
-project by sending me the link to a GitHub repository. For the write-up
+You will submit this
+project by sending me the link to a GitHub repository. 
+For the write-up
 of this homework, you'll need to write an RMarkdown document and render
 it to a pdf file within the R Project for the GitHub repository.
-
-As you work on your homework, make sure you commit regularly (with
-helpful commit messages). You should have at least 15 commit messages in
-your history for the repo by the time you turn in the homework.
 
 ```{r}
 library(tidyverse)
@@ -62,14 +59,16 @@ la_tracts <- tracts(state = "CA", county = "Los Angeles", cb = TRUE, class = "sf
 la_county <- counties(state = "CA", cb = TRUE, class = "sf") %>%
   filter(NAME=="Los Angeles")
 
+
+top3_race <- LA %>%
+  group_by(victim_race) %>%
+  count()
+
 LA <- st_as_sf(LA, coords = c("lon", "lat"))%>% 
   st_set_crs(4269) %>%
   filter(victim_race %in% c("White", "Black", "Hispanic")) %>%
   mutate(unsolved_homicides = as.character(unsolved_homicides)) 
 
-top3_race <- LA %>%
-  group_by(victim_race) %>%
-  count()
 
 la_labs <- as_labeller(c( "TRUE" = "Unsolved Homicides", "FALSE" = "Solved Homicides"))
 
@@ -77,12 +76,12 @@ ggplot() +
   geom_sf(data =la_county, color = 'black', 
           fill = 'lightgrey') +
   geom_sf(data =la_subdivisions,  color = 'black', 
-          fill = 'lightgrey') +
+          fill = 'lightgrey', alpha = 0.25) +
   geom_sf(data =la_blocks,  color = 'black', 
-          fill = 'lightgrey')  +
+          fill = 'lightgrey', alpha = 0.25)  +
   geom_sf(data =la_tracts,  color = 'black', 
-          fill= 'lightgrey') +
-  geom_sf(data=LA,  aes(color = victim_race)) +
+          fill= 'lightgrey', alpha = 0.25) +
+  geom_sf(data=LA,  aes(color = victim_race), size = 1.5) +
   facet_wrap(~unsolved_homicides, labeller = la_labs) +
   scale_color_viridis(discrete=TRUE) +
   theme_bw() +
@@ -90,6 +89,6 @@ ggplot() +
   theme(axis.text.y=element_blank(),axis.ticks=element_blank(),
         axis.title.x=element_blank(), axis.text.x=element_blank()) +
   theme(strip.text = element_text(size = 10, face='bold')) +
-  labs(title = "Homicides in Los Angeles County")
+  labs(title = "Homicides in Los Angeles County", color = "Victim Race")
   
 ```
