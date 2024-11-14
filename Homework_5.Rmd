@@ -15,15 +15,6 @@ Continue using the dataset used for Homework #4.
 You will submit this project by sending me the link to a GitHub repository.
 For the write-up of this homework, you’ll need to write an RMarkdown document and render it to a pdf file within the R Project for the GitHub repository.
 
-B.5.1 Setting up a GitHub repository for this project
-
-Take the following steps to set up your GitHub repository for the homework (we will work on this as an in-course exercise):
-
-Initialize git for the R project and make your initial commit.
-
-Add a README.md file to the top level of your R project (on your local computer) using Markdown syntax and then commit the change locally and push to your GitHub repository.
-For the README.md file, you can create a text file in RStudio and save it as “README.md”. You can then write this file using Markdown syntax (like RMarkdown, but without any code chunks).
-
 As you work on your homework, make sure you commit regularly (with helpful commit messages). You should have at least 15 commit messages in your history for the repo by the time you turn in the homework.
 
 Select one of the following two figures to create for the homework:
