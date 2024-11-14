@@ -2,9 +2,11 @@
 title: 'Homework #5'
 author: "Alex Alon"
 date: "2024-10-21"
-output: word_document
-editor_options: 
-  markdown: 
+output:
+  pdf_document: default
+  word_document: default
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -29,6 +31,7 @@ library(broom)
 library(tigris)
 library(maps)
 library(sf)
+library(viridis)
 
 homicides <- read.csv('homicide-data.csv')
 
