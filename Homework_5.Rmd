@@ -7,6 +7,7 @@ output: word_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'Data')
 ```
 
 Due date: Nov. 18 by midnight
@@ -29,7 +30,30 @@ Choice 2: Recreate the graph shown below. It shows monthly homicides in Baltimor
 
 ```{r}
 library(tidyverse)
-library(ggplot2) 
+library(purrr)
+library(ggplot2)
+library(broom)
+library(tigris)
+
+homicides <- read.csv('homicide-data.csv')
+
+homicides <- homicides %>%
+  mutate(state = replace(state, state == "wI", "WI")) %>%
+  mutate('city_name' =  paste(homicides$city, homicides$state, sep = ", "))
+
+tail(homicides)
+
+#group_by city
+#sum of unsolved homicides
+unsolved <- homicides %>%
+  group_by(city_name) %>%
+  mutate("unsolved_homicides" = disposition %in% c("Closed without arrest", "Open/No arrest")) %>%
+  summarize(total_homicides = n(), total_unsolved = sum(unsolved_homicides)) 
+
+head(unsolved)
+
+baltimore <- unsolved %>%
+  filter(city_name == "Baltimore, MD")
 
 
 ```
