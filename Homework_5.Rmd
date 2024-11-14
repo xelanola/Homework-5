@@ -80,5 +80,9 @@ ggplot() +
   geom_sf(data =la_tracts,  color = 'black', 
           aes(fill = NA)) +
   geom_sf(data=LA,  aes(color = victim_race)) +
-  facet_wrap(~unsolved_homicides)
+  facet_wrap(~unsolved_homicides) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(axis.text.y=element_blank(),axis.ticks=element_blank(),
+        axis.title.x=element_blank(), axis.text.x=element_blank())
 ```
