@@ -1,7 +1,7 @@
 ---
 title: 'Homework #5'
 author: "Alex Alon"
-date: "2024-10-21"
+date: "2024-10-14"
 output:
   pdf_document: default
   word_document: default
@@ -15,19 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = 'Data')
 ```
 
-Due date: Nov. 18 by midnight
-
-You will submit this
-project by sending me the link to a GitHub repository. 
-For the write-up
-of this homework, you'll need to write an RMarkdown document and render
-it to a pdf file within the R Project for the GitHub repository.
+For the following assignment I looked at solved/unsolved homicides in Los Angeles County in California. The top 3 homicide victim races were White, Hispanic, and Black.
 
 ```{r}
 library(tidyverse)
-library(purrr)
 library(ggplot2)
-library(broom)
 library(tigris)
 library(maps)
 library(sf)
