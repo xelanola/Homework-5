@@ -64,25 +64,32 @@ la_county <- counties(state = "CA", cb = TRUE, class = "sf") %>%
 
 LA <- st_as_sf(LA, coords = c("lon", "lat"))%>% 
   st_set_crs(4269) %>%
-  filter(victim_race %in% c("White", "Black", "Hispanic"))
+  filter(victim_race %in% c("White", "Black", "Hispanic")) %>%
+  mutate(unsolved_homicides = as.character(unsolved_homicides)) 
 
 top3_race <- LA %>%
   group_by(victim_race) %>%
   count()
 
+la_labs <- as_labeller(c( "TRUE" = "Unsolved Homicides", "FALSE" = "Solved Homicides"))
+
 ggplot() +
   geom_sf(data =la_county, color = 'black', 
-          aes(fill = NA)) +
+          fill = 'lightgrey') +
   geom_sf(data =la_subdivisions,  color = 'black', 
-          aes(fill = NA)) +
+          fill = 'lightgrey') +
   geom_sf(data =la_blocks,  color = 'black', 
-          aes(fill = NA))  +
+          fill = 'lightgrey')  +
   geom_sf(data =la_tracts,  color = 'black', 
-          aes(fill = NA)) +
+          fill= 'lightgrey') +
   geom_sf(data=LA,  aes(color = victim_race)) +
-  facet_wrap(~unsolved_homicides) +
+  facet_wrap(~unsolved_homicides, labeller = la_labs) +
+  scale_color_viridis(discrete=TRUE) +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.y=element_blank(),axis.ticks=element_blank(),
-        axis.title.x=element_blank(), axis.text.x=element_blank())
+        axis.title.x=element_blank(), axis.text.x=element_blank()) +
+  theme(strip.text = element_text(size = 10, face='bold')) +
+  labs(title = "Homicides in Los Angeles County")
+  
 ```
