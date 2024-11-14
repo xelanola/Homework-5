@@ -77,13 +77,13 @@ la_labs <- as_labeller(c( "TRUE" = "Unsolved Homicides", "FALSE" = "Solved Homic
 
 ggplot() +
   geom_sf(data =la_county, color = 'black', 
-          fill = 'lightgrey') +
-  geom_sf(data =la_subdivisions,  color = 'black', 
-          fill = 'lightgrey', alpha = 0.25) +
-  geom_sf(data =la_blocks,  color = 'black', 
-          fill = 'lightgrey', alpha = 0.25)  +
-  geom_sf(data =la_tracts,  color = 'black', 
-          fill= 'lightgrey', alpha = 0.25) +
+          fill = 'azure') +
+  geom_sf(data =la_subdivisions,  color = 'lightgrey', 
+          fill = 'azure', alpha = 0.25) +
+  geom_sf(data =la_blocks,  color = 'lightgrey', 
+          fill = 'azure', alpha = 0.25)  +
+  geom_sf(data =la_tracts,  color = 'lightgrey', 
+          fill= 'azure', alpha = 0.25) +
   geom_sf(data=LA,  aes(color = victim_race), size = 1.5) +
   facet_wrap(~unsolved_homicides, labeller = la_labs) +
   scale_color_viridis(discrete=TRUE) +
